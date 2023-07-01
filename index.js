@@ -13,6 +13,7 @@ app.use(cors()); // отключает CORS
 app.use(jsonParser);
 
 //todo: аутентификация и создание файла паролей
+//todo: сформировать POST запрос с личными данными, ответ - получение TOKENа
 
 //todo: create file
 
