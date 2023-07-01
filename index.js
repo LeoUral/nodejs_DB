@@ -26,6 +26,7 @@ app.use(jsonParser);
 
 
 app.use((err, req, res, next) => {
+    logger.fatal(err, 'NEW ERROR!')
     res.status(500).send(chalk.bgRed('Новая не обработанная ошибка: ', err.message))
 });
 

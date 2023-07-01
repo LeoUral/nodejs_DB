@@ -5,8 +5,8 @@
     "main": "index.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "dev": "cross-env | nodemon index.js",
-        "start": "node index.js"
+        "dev": "cross-env | npx pino-pretty | nodemon index.js",
+        "start": "npx pino-pretty | node index.js"
     },
     "author": "Leonid Kudryashov <leoural66@yandex.ru>",
     "license": "ISC",

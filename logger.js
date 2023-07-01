@@ -4,10 +4,12 @@ const pino = require('pino');
 const fileTransport = pino.transport({
     targets: [
         {
+            level: process.env.PINO_LOG_LEVEL || 'trace',
             target: 'pino/file',
             options: { destination: `${__dirname}/app.log` },
         },
         {
+            level: process.env.PINO_LOG_LEVEL || 'trace',
             target: 'pino-pretty',
         },
     ],
@@ -15,8 +17,8 @@ const fileTransport = pino.transport({
 
 module.exports = pino(
     {
-        level: process.env.PINO_LOG_LEVEL || 'info',
-        // level: 'info',
+        level: process.env.PINO_LOG_LEVEL || 'trace',
+        // level: 'trace',
     },
     fileTransport
 );
