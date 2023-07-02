@@ -4,6 +4,7 @@ const cors = require('cors')
 const path = require('path');
 const chalk = require('chalk');
 const logger = require('./logger');
+const router = require('./src/routes/index');
 
 const app = express();
 const jsonParser = express.json();
@@ -15,16 +16,7 @@ app.use(jsonParser);
 //todo: аутентификация и создание файла паролей
 //todo: сформировать POST запрос с личными данными, ответ - получение TOKENа
 
-//todo: create file
-
-//todo: update file
-
-//todo: read file
-
-//todo: delete file
-
-//todo: search field in file
-
+app.use('/api', router);
 
 app.use((err, req, res, next) => {
     logger.fatal(err, 'NEW ERROR!')
