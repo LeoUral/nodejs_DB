@@ -3,6 +3,7 @@ const uuid = require('uuid');
 const path = require('path');
 const readDataUser = require('../model/users/readDataUser');
 const createNewUser = require('../model/users/createNewUser');
+const bcrypt = require('bcrypt');
 
 
 class UserController {
@@ -15,15 +16,18 @@ class UserController {
      */
     async create(req, res, next) {
         try {
-            const { nickname, email } = req.query
+            const { nickname, email, password } = req.query
             if (!nickname || !email) throw new Error('No nickname or email')
+
+            const salt = await bcrypt.genSalt(10);
+            const pass = await bcrypt.hash(password, salt)
 
             const token = uuid.v4()
             const urlDB = path.join(__dirname, '..', '..', '..', '_DB')
-            console.log(`EMAIL: ${email}, nickname: ${nickname}, TOKEN: ${token}`); // test
+            console.log(`EMAIL: ${email}, nickname: ${nickname}, password: ${password}, TOKEN: ${token}`); // test
 
             const urlDBFiles = path.join(urlDB, '/')
-            const result = await readDataUser(`${urlDBFiles}users.json`, email, nickname, token)
+            const result = await readDataUser(`${urlDBFiles}users.json`, email, nickname, pass, token)
 
             console.log(`RESULT SEARCH USER: `, result); // test
 
@@ -34,7 +38,7 @@ class UserController {
                 res.json({ token: result })
 
             } else {
-                await createNewUser(`${urlDBFiles}users.json`, email, nickname, token)
+                await createNewUser(`${urlDBFiles}users.json`, email, nickname, pass, token)
                 res.json({ token: token })
             }
 

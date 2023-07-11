@@ -3,6 +3,8 @@ const readData = require('../general/readData');
 const logger = require('../../../logger')
 
 
+
+
 /**
  * Читает данные указанного пользователя, если нет файла, то создает
  * @param {*} pathUserData 
@@ -10,12 +12,12 @@ const logger = require('../../../logger')
  * @param {*} nickname 
  * @param {*} token 
  */
-module.exports = async (pathUserData, email, nickname, token) => {
+module.exports = async (pathUserData, email, nickname, password, token) => {
     try {
         const result = await JSON.parse(await readData(pathUserData))
 
         if (result === null) {
-            await createFileData(pathUserData, JSON.stringify([{ email: email, nickname: nickname, token: token }]))
+            await createFileData(pathUserData, JSON.stringify([{ email: email, nickname: nickname, password: password, token: token }]))
             return String(token)
         }
 
