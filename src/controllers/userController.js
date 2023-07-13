@@ -4,6 +4,8 @@ const path = require('path');
 const readDataUser = require('../model/users/readDataUser');
 const createNewUser = require('../model/users/createNewUser');
 const bcrypt = require('bcrypt');
+const createNewDir = require('../model/general/createNewDir');
+
 
 
 class UserController {
@@ -30,15 +32,21 @@ class UserController {
             const result = await readDataUser(`${urlDBFiles}users.json`, email, nickname, pass, token)
 
             console.log(`RESULT SEARCH USER: `, result); // test
+            const urlDir = path.join(__dirname, '..', '..', '..', '_DB', `${token}`)
 
+            // обработка результата чтения данных пользователя
             if (typeof (result) === 'object') {
                 res.json({ result: 'Такой пользователь уже есть' })
 
             } else if (typeof (result) === 'string') {
+                const resultNewDir1 = await createNewDir(urlDir)
+
                 res.json({ token: result })
 
             } else {
                 await createNewUser(`${urlDBFiles}users.json`, email, nickname, pass, token)
+                const resultNewDir2 = await createNewDir(urlDir)
+
                 res.json({ token: token })
             }
 

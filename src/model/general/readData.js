@@ -12,7 +12,7 @@ module.exports = async (pathUserData) => {
 
         return result
     } catch (err) {
-        console.log(`Ошибка чтения файла в fs.readFile: `, err);
+        console.log(`Ошибка чтения файла или файл отсутствует: `, err);
         return null
 
     }

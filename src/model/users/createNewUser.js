@@ -1,7 +1,10 @@
 const logger = require('../../../logger');
 const createFileData = require('../general/createFileData');
+const createNewDir = require('../general/createNewDir');
 const readData = require('../general/readData')
 const bcrypt = require('bcrypt')
+const path = require('path')
+
 
 
 /**
@@ -21,11 +24,8 @@ module.exports = async (filePath, email, nickname, password, token) => {
         }
         const allUsers = await JSON.parse(await readData(filePath))
         allUsers.push(obj)
-        console.log(`FILE PATH:::: `, filePath); // test
 
         await createFileData(filePath, JSON.stringify(allUsers))
-
-        // todo: создать для нового пользователя, его директорию - home/token/
 
     } catch (err) {
         console.log(`Ошибка при добавлении нового пользователя`);
