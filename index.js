@@ -12,6 +12,7 @@ const jsonParser = express.json();
 const PORT = process.env.PORT || 3030;
 app.use(cors()); // отключает CORS
 app.use(jsonParser);
+app.use(express.urlencoded());
 
 //todo: аутентификация и создание файла паролей
 //todo: сформировать POST запрос с личными данными, ответ - получение TOKENа
