@@ -4,10 +4,12 @@ const bcrypt = require('bcrypt');
 const createNewDir = require('../model/general/createNewDir');
 const readData = require('../model/general/readData');
 const checkUser = require('../model/general/checkUser');
+const createFileData = require('../model/general/createFileData');
 
 
 
 class CreateController {
+
 
     /**
      * Создание новой коллекции пользователя
@@ -40,6 +42,36 @@ class CreateController {
             logger.error(err, `Error, create new collection`)
             res.json({ error: 'Not create new collection' })
             next()
+        }
+    }
+
+    /**
+     * Создание нового документа (перезаписывает текущий)
+     * @param {*} req 
+     * @param {*} res 
+     * @param {*} next 
+     */
+    async document(req, res, next) {
+        try {
+            const { email, password, token, collection, idDocument, data } = req.body
+
+            const urlDB = path.join(__dirname, '..', '..', '..', '_DB')
+            const dataUsers = JSON.parse(await readData(`${urlDB}/users.json`))
+            const result = await checkUser(email, password, token, dataUsers);
+
+            if (!result) throw new Error('Error, The data is not correct!')
+
+            console.log(`BODY::: `, req.body); // test
+            const urlCollection = path.join(`${urlDB}`, `${token}`, `${collection}`)
+            const urlNewFile = path.join(`${urlCollection}`, `${idDocument}.json`)
+
+            const resultCreate = await createFileData(urlNewFile, JSON.stringify(data))
+            console.log(`RESULT create new document:::: `, resultCreate);
+
+            res.json({ result: `create new document: ${idDocument}` })
+        } catch (err) {
+            logger.error(err, 'Error, creqte new document')
+            res.json({ error: 'Not create new document' })
         }
     }
 

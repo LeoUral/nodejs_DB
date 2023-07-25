@@ -4,6 +4,6 @@ const createController = require('../controllers/createController')
 
 
 router.post('/collection', createController.collection);
-router.post('/document',);
+router.post('/document', createController.document);
 
 module.exports = router;
