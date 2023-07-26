@@ -5,6 +5,8 @@ const createNewDir = require('../model/general/createNewDir');
 const readData = require('../model/general/readData');
 const checkUser = require('../model/general/checkUser');
 const createFileData = require('../model/general/createFileData');
+const readDir = require('../model/general/readDir');
+const accessDir = require('../model/general/accessDir');
 
 
 
@@ -61,17 +63,25 @@ class CreateController {
 
             if (!result) throw new Error('Error, The data is not correct!')
 
-            console.log(`BODY::: `, req.body); // test
             const urlCollection = path.join(`${urlDB}`, `${token}`, `${collection}`)
+
+            const resultReadDir = await accessDir(urlCollection) // проверяем доступ к диретории
+
+            if (!resultReadDir) {
+                await createNewDir(urlCollection) // создаем, если нет указаной директории
+            }
+
             const urlNewFile = path.join(`${urlCollection}`, `${idDocument}.json`)
 
             const resultCreate = await createFileData(urlNewFile, JSON.stringify(data))
             console.log(`RESULT create new document:::: `, resultCreate);
 
             res.json({ result: `create new document: ${idDocument}` })
+
         } catch (err) {
-            logger.error(err, 'Error, creqte new document')
+            logger.error(err, 'Error, create new document')
             res.json({ error: 'Not create new document' })
+            next()
         }
     }
 

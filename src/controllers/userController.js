@@ -26,12 +26,10 @@ class UserController {
 
             const token = uuid.v4()
             const urlDB = path.join(__dirname, '..', '..', '..', '_DB')
-            console.log(`EMAIL: ${email}, nickname: ${nickname}, password: ${password}, TOKEN: ${token}`); // test
 
             const urlDBFiles = path.join(urlDB, '/')
             const result = await readDataUser(`${urlDBFiles}users.json`, email, nickname, pass, token)
 
-            console.log(`RESULT SEARCH USER: `, result); // test
             const urlDir = path.join(__dirname, '..', '..', '..', '_DB', `${token}`)
 
             // обработка результата чтения данных пользователя
