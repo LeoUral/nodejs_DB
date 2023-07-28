@@ -15,9 +15,8 @@ module.exports = async (email, password, token, dataUsers) => {
 
     if (token !== user.token) return false
 
-    console.log(`user: `, user); // test
     const result = await bcrypt.compare(password, user.password)
-    console.log(`result -> `, result);  // test
+    console.log(`access -> `, result);  // test
 
     return result
 }

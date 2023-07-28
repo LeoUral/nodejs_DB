@@ -1,11 +1,9 @@
 const logger = require('../../logger');
 const path = require('path');
-const bcrypt = require('bcrypt');
 const createNewDir = require('../model/general/createNewDir');
 const readData = require('../model/general/readData');
 const checkUser = require('../model/general/checkUser');
 const createFileData = require('../model/general/createFileData');
-const readDir = require('../model/general/readDir');
 const accessDir = require('../model/general/accessDir');
 
 
@@ -57,11 +55,12 @@ class CreateController {
         try {
             const { email, password, token, collection, idDocument, data } = req.body
 
+            // check user
             const urlDB = path.join(__dirname, '..', '..', '..', '_DB')
             const dataUsers = JSON.parse(await readData(`${urlDB}/users.json`))
             const result = await checkUser(email, password, token, dataUsers);
-
             if (!result) throw new Error('Error, The data is not correct!')
+
 
             const urlCollection = path.join(`${urlDB}`, `${token}`, `${collection}`)
 
