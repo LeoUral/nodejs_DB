@@ -61,7 +61,6 @@ class CreateController {
             const result = await checkUser(email, password, token, dataUsers);
             if (!result) throw new Error('Error, The data is not correct!')
 
-
             const urlCollection = path.join(`${urlDB}`, `${token}`, `${collection}`)
 
             const resultReadDir = await accessDir(urlCollection) // проверяем доступ к диретории

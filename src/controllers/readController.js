@@ -12,6 +12,12 @@ const accessDir = require('../model/general/accessDir');
 
 class ReadController {
 
+    /**
+     * Чтение документа из DB 
+     * @param {*} req (body: email, password, token, collection, idDocument)
+     * @param {*} res 
+     * @param {*} next 
+     */
     async document(req, res, next) {
         try {
             const { email, password, token, collection, idDocument } = req.body
