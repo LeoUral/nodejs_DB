@@ -5,6 +5,7 @@ const readData = require('../model/general/readData');
 const checkUser = require('../model/general/checkUser');
 const createFileData = require('../model/general/createFileData');
 const accessDir = require('../model/general/accessDir');
+const checkResult = require('../model/general/checkResult');
 
 
 
@@ -56,9 +57,9 @@ class CreateController {
             const { email, password, token, collection, idDocument, data } = req.body
 
             // check user
-            const urlDB = path.join(__dirname, '..', '..', '..', '_DB')
-            const dataUsers = JSON.parse(await readData(`${urlDB}/users.json`))
-            const result = await checkUser(email, password, token, dataUsers);
+            const urlDB = path.join(__dirname, '..', '..', '..', '_DB') // ? ***
+            const result = await checkResult(email, password, token, urlDB)
+            console.log(`RESULT --> `, result);
             if (!result) throw new Error('Error, The data is not correct!')
 
             const urlCollection = path.join(`${urlDB}`, `${token}`, `${collection}`)
