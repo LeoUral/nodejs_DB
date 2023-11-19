@@ -19,13 +19,30 @@ class CreateController {
      * @param {*} next 
      */
     async collection(req, res, next) {
+        const includArr = ['/', '*', '.', ',', '?', '"', '`', "'", '+', '=', '$', '%', '&', '^', ':', ';', '#', '!', '~', '(', ')', '[', ']', '{', '}', '|', '/', '<', '>']
         try {
             const { email, password, token, collection } = req.body
             const urlDB = path.join(__dirname, '..', '..', '..', '_DB')
 
             if (!email || !password || !token || !collection) throw new Error('No password or email or token or collection')
-            //todo: сделать проверку collection на '/ * . , ? " ' ` + = $ % & ^ : ; # ! ~ ( ) [] {} | / < > ' и пробел
-            //todo: сделать все буквы прописными
+
+            //*: сделать проверку collection на '/ * . , ? " ' ` + = $ % & ^ : ; # ! ~ ( ) [] {} | / < > ' и пробел
+            const coll = collection.split('')
+            const resultCompare = coll.map(itm => {
+                const result = includArr.includes(itm)
+
+                if (result) {
+                    return true
+                }
+                return false
+            })
+
+            if (resultCompare.includes(true)) {
+                throw new Error('Не допустимый символ в названии коллекции')
+            }
+
+            //*: сделать все буквы прописными
+            collection.toLowerCase();
 
             const dataUsers = JSON.parse(await readData(`${urlDB}/users.json`))
             const result = await checkUser(email, password, token, dataUsers);

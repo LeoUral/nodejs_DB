@@ -20,6 +20,7 @@ class SearchController {
     async searchPosition(req, res, next) {
         try {
             // todo: Сделать поиск в документах указанной позиции
+
         } catch (err) {
             logger.error(err, `Error, position not found`)
             res.json({ error: 'Position not found' })
