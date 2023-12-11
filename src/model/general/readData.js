@@ -3,7 +3,7 @@ const logger = require('../../../logger')
 
 /**
  * Читает данные из файла, not JSON
- * @param {*} pathUserData 
+ * @param {String} pathUserData  - URL к файлу
  * @returns 
  */
 module.exports = async (pathUserData) => {
