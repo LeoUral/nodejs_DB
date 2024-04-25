@@ -18,7 +18,7 @@ class CreateController {
      * @param {*} res 
      * @param {*} next 
      */
-    async collection(req, res, next) {
+    async createCollection(req, res, next) {
         const includArr = ['/', '*', '.', ',', '?', '"', '`', "'", '+', '=', '$', '%', '&', '^', ':', ';', '#', '!', '~', '(', ')', '[', ']', '{', '}', '|', '/', '<', '>']
         try {
             const { email, password, token, collection } = req.body
@@ -69,7 +69,7 @@ class CreateController {
      * @param {*} res 
      * @param {*} next 
      */
-    async document(req, res, next) {
+    async createDocument(req, res, next) {
         try {
             const { email, password, token, collection, idDocument, data } = req.body
 
@@ -89,14 +89,15 @@ class CreateController {
 
             const urlNewFile = path.join(`${urlCollection}`, `${idDocument}.json`)
 
-            const resultCreate = await createFileData(urlNewFile, JSON.stringify(data))
+            const resultCreate = await createFileData(urlNewFile, data)
             console.log(`RESULT create new document:::: `, resultCreate);
 
             res.json({ result: `create new document: ${idDocument}` })
 
         } catch (err) {
             logger.error(err, 'Error, create new document')
-            res.json({ error: 'Not create new document' })
+            // res.json({ error: 'Not create new document' })
+            res.sendStatus(400)
             next()
         }
     }

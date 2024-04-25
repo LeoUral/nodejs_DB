@@ -19,7 +19,7 @@ class UpdateController {
      * @param {*} res 
      * @param {*} next 
      */
-    async document(req, res, next) {
+    async updateDocument(req, res, next) {
         try {
             // *: Обновление указанных данных в указанном документе по ключу
             const { email, password, token, collection, idDocument, key, data } = req.body

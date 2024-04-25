@@ -5,7 +5,7 @@ const router = new Router()
 
 
 // router.post('/collection',);
-router.post('/document', readController.document);
-router.post('/all', readController.allDocum);
+router.post('/document', readController.readDocument);
+router.post('/all', readController.readAllDocum);
 
 module.exports = router;

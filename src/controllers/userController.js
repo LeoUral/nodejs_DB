@@ -16,9 +16,9 @@ class UserController {
      * @param {*} res 
      * @param {*} next 
      */
-    async create(req, res, next) {
+    async createNewUser(req, res, next) {
         try {
-            const { nickname, email, password } = req.query
+            const { nickname, email, password } = req.body
             if (!nickname || !email) throw new Error('No nickname or email')
 
             const salt = await bcrypt.genSalt(10);
@@ -50,7 +50,8 @@ class UserController {
 
         } catch (err) {
             logger.error(err, `Error, create new user`)
-            res.json({ error: 'No nickname or email' })
+            // res.json({ error: 'No nickname or email' })
+            res.sendStatus(400)
             next()
         }
     }

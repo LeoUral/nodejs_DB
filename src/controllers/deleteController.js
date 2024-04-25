@@ -18,7 +18,7 @@ class DeleteController {
      * @param {*} res 
      * @param {*} next 
      */
-    async document(req, res, next) {
+    async deleteDocument(req, res, next) {
         try {
             // todo: Удаление документа в указанной коллекции
             console.log(`Deleting of document`); // test
@@ -35,7 +35,7 @@ class DeleteController {
      * @param {*} res 
      * @param {*} next 
      */
-    async collection(req, res, next) {
+    async deleteCollection(req, res, next) {
         try {
             // todo: Удаление коллекции (перед удаление проверить на отстутсвие в ней документов)
             console.log(`Deleting of collection`); // test

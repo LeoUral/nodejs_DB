@@ -19,7 +19,7 @@ class ReadController {
      * @param {*} res 
      * @param {*} next 
      */
-    async document(req, res, next) {
+    async readDocument(req, res, next) {
         try {
             const { email, password, token, collection, idDocument } = req.body
 
@@ -52,7 +52,7 @@ class ReadController {
      * @param {*} res 
      * @param {*} next 
      */
-    async allDocum(req, res, next) {
+    async readAllDocum(req, res, next) {
         try {
             const { email, password, token, collection } = req.body
             console.log(`POST API DATA::: `, password, token, collection); // test

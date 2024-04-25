@@ -3,6 +3,6 @@ const updateController = require('../controllers/updateController');
 const router = new Router()
 
 
-router.post('/document', updateController.document);
+router.post('/document', updateController.updateDocument);
 
 module.exports = router;

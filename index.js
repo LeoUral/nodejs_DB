@@ -16,7 +16,7 @@ app.use(express.urlencoded());
 
 //TODO: Необходимо сделать:
 
-//todo: аутентификация и создание файла паролей
+//todo: аутентификация и создание файла паролей (через cookie (http: only))
 //todo: сформировать POST запрос с личными данными, ответ - получение TOKENа
 
 // deleteController:
@@ -26,7 +26,7 @@ app.use(express.urlencoded());
 // searchController:
 // todo: Сделать поиск в документах указанной позиции. Далее в файлах
 
-app.use('/api', router);
+app.use('/api/v1/auth', router);
 
 app.use((err, req, res, next) => {
     logger.fatal(err, 'NEW ERROR!')
