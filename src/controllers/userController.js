@@ -5,6 +5,7 @@ const readDataUser = require('../model/users/readDataUser');
 const createNewUser = require('../model/users/createNewUser');
 const bcrypt = require('bcrypt');
 const createNewDir = require('../model/general/createNewDir');
+const accessDir = require('../model/general/accessDir');
 
 
 
@@ -26,6 +27,11 @@ class UserController {
 
             const token = uuid.v4()
             const urlDB = path.join(__dirname, '..', '..', '..', '_DB')
+
+            const resultAccessDir = await accessDir(urlDB)
+            if (!resultAccessDir) {
+                await createNewDir(urlDB)
+            }
 
             const urlDBFiles = path.join(urlDB, '/')
             const result = await readDataUser(`${urlDBFiles}users.json`, email, nickname, pass, token)

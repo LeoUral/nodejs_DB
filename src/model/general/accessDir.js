@@ -2,8 +2,9 @@ const fs = require('fs/promises');
 const logger = require('../../../logger');
 
 /**
- * Проверяем доступ к диретории
- * @param {*} path 
+ * Проверяем доступ к диретории или файлу
+ * @param {String} path 
+ * @returns {Boolean} true - директория, файл существует / false - директори, файла нет
  */
 module.exports = async (path) => {
     try {

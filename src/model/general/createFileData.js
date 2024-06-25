@@ -8,7 +8,7 @@ const logger = require('../../../logger')
  */
 module.exports = async (pathFile, data) => {
     try {
-        await fs.writeFile(pathFile, data)
+        const resultFs = await fs.writeFile(pathFile, data)
         return { result: 'create new file' }
 
     } catch (err) {

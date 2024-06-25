@@ -1,6 +1,8 @@
 const createFileData = require('../general/createFileData');
 const readData = require('../general/readData');
-const logger = require('../../../logger')
+const logger = require('../../../logger');
+const createNewDir = require('../general/createNewDir');
+const accessDir = require('../general/accessDir');
 
 
 
@@ -14,9 +16,14 @@ const logger = require('../../../logger')
  */
 module.exports = async (pathUserData, email, nickname, password, token) => {
     try {
-        const result = await JSON.parse(await readData(pathUserData))
+        console.log(`read DATA PATH:::: `, pathUserData); // test
 
-        if (result === null) {
+        const resultAccess = await accessDir(pathUserData)
+
+        let result;
+        if (resultAccess) {
+            result = await JSON.parse(await readData(pathUserData))
+        } else {
             await createFileData(pathUserData, JSON.stringify([{ email: email, nickname: nickname, password: password, token: token }]))
             return String(token)
         }
