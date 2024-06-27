@@ -1,7 +1,6 @@
 const createFileData = require('../general/createFileData');
 const readData = require('../general/readData');
 const logger = require('../../../logger');
-const createNewDir = require('../general/createNewDir');
 const accessDir = require('../general/accessDir');
 
 

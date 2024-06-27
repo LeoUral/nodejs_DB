@@ -6,6 +6,8 @@ const createNewUser = require('../model/users/createNewUser');
 const bcrypt = require('bcrypt');
 const createNewDir = require('../model/general/createNewDir');
 const accessDir = require('../model/general/accessDir');
+const login = require('../model/users/login');
+const errorHandler = require('../error/errorHandler');
 
 
 
@@ -59,6 +61,29 @@ class UserController {
             // res.json({ error: 'No nickname or email' })
             res.sendStatus(400)
             next()
+        }
+    }
+
+
+    /**
+     * Вход в систему
+     * @param {*} req 
+     * @param {*} res 
+     * @param {*} next 
+     */
+    async signIn(req, res, next) {
+        try {
+            const result = await login(req, res)
+            if (!result.result) throw new Error(result.err)
+
+            // todo:
+            // todo: Отправить cooki
+            // todo: создать сессию
+
+            res.json({ token: result.result.token })
+        } catch (err) {
+            console.log(`Ошибка при входе: `, err);
+            res.sendStatus(errorHandler(err.message))
         }
     }
 
